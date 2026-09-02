@@ -1,6 +1,6 @@
 @MovieApi_Refactor_HostAddress = http://localhost:5088
 
-GET {{MovieApi_Refactor_HostAddress}}/weatherforecast/
+GET {{MovieApi_Refactor_HostAddress}}/movies/
 Accept: application/json
 
 ###
