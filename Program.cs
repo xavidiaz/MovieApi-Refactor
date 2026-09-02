@@ -25,6 +25,16 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MovieContext>();
     db.Database.Migrate();
+
+    if (!db.Movies.Any())
+    {
+        db.Movies.AddRange(
+            new Movie { Title = "The Matrix", Year = 1999 },
+            new Movie { Title = "Inception", Year = 2010 },
+            new Movie { Title = "Parasite", Year = 2019 }
+        );
+        db.SaveChanges();
+    }
 }
 
 app.UseHttpsRedirection();
