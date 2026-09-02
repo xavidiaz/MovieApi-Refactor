@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using MovieApi_Refactor;
+using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Entities;
 
 var builder = WebApplication.CreateBuilder(args);

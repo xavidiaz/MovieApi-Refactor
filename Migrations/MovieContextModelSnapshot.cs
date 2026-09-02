@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MovieApi_Refactor;
+using MovieApi_Refactor.Data;
 
 #nullable disable
 
@@ -16,7 +16,7 @@ namespace MovieApi_Refactor.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
 
-            modelBuilder.Entity("MovieApi_Refactor.Movie", b =>
+            modelBuilder.Entity("MovieApi_Refactor.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
