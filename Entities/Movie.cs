@@ -1,4 +1,4 @@
-namespace MovieApi_Refactor;
+namespace MovieApi_Refactor.Entities;
 
 public class Movie
 {

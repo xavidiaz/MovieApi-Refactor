@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MovieApi_Refactor.Entities;
 
 namespace MovieApi_Refactor.Controllers;
 
