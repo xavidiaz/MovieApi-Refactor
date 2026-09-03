@@ -3,6 +3,7 @@ using Microsoft.OpenApi;
 using MovieApi_Refactor;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<MovieContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext"))
         );
-
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
