@@ -10,5 +10,5 @@ public interface IMovieRepository
     void Update(Movie movie);
     void Remove(Movie movie);
 
-    Task<bool> SaveChagesAsync();
+    Task<bool> SaveChangesAsync();
 }
