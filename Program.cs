@@ -16,6 +16,8 @@ builder.Services.AddDbContext<MovieContext>(options =>
         options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext"))
         );
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
