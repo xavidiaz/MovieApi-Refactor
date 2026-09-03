@@ -12,6 +12,4 @@ public class MovieRepository(MovieContext context) : IMovieRepository
     public void Update(Movie movie) => context.Movies.Update(movie);
     public void Remove(Movie movie) => context.Movies.Remove(movie);
 
-    public async Task<bool> SaveChangesAsync() => await context.SaveChangesAsync() > 0;
-
 }

@@ -9,6 +9,4 @@ public interface IMovieRepository
     void Add(Movie movie);
     void Update(Movie movie);
     void Remove(Movie movie);
-
-    Task<bool> SaveChangesAsync();
 }
