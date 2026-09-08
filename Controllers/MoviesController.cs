@@ -1,15 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MovieApi_Refactor.Entities;
-using MovieApi_Refactor.Data;
+using MovieApi_Refactor.Services;
 
 namespace MovieApi_Refactor.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MoviesController(IUnitOfWork unitOfWork) : ControllerBase
+public class MoviesController(IMovieService movieService) : ControllerBase
 {
     [HttpGet(Name = "Movies")]
-    public async Task<IEnumerable<Movie>> CompleteAsync() => await unitOfWork.Movies.GetAllAsync();
+    public async Task<IEnumerable<Movie>> GetAllAsync() => await movieService.GetAllAsync();
 
 }
