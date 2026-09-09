@@ -6,6 +6,7 @@ public class UnitOfWork(MovieContext context) : IUnitOfWork
 {
     public IMovieRepository Movies { get; } = new MovieRepository(context);
     public IActorRepository Actors { get; } = new ActorRepository(context);
+    public IReviewRepository Reviews { get; } = new ReviewRepository(context);
 
     public async Task<bool> CompleteAsync() => await context.SaveChangesAsync() > 0;
 }
