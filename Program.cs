@@ -87,6 +87,25 @@ using (var scope = app.Services.CreateScope())
 
         db.SaveChanges();
     }
+    if (!db.Reviews.Any())
+    {
+        var matrix = db.Movies.First(m => m.Title == "The Matrix");
+        var inception = db.Movies.First(m => m.Title == "Inception");
+        var parasite = db.Movies.First(m => m.Title == "Parasite");
+
+        matrix.Reviews.Add(new Review { Rating = 8.7, Text = "Genredefinierande sci-fi." });
+        matrix.Reviews.Add(
+            new Review { Rating = 7.5, Text = "Håller än, bortsett från vissa effekter." }
+        );
+
+        inception.Reviews.Add(
+            new Review { Rating = 8.8, Text = "Snurrar vidare i huvudet efteråt." }
+        );
+
+        parasite.Reviews.Add(new Review { Rating = 9.1, Text = "Perfekt tonväxling hela vägen." });
+
+        db.SaveChanges();
+    }
 }
 
 app.UseHttpsRedirection();
