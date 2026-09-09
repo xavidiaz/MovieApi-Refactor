@@ -26,8 +26,6 @@ public class ActorService(IUnitOfWork unitOfWork) : IActorService
         existing.LastName = actor.LastName;
         existing.BirthYear = actor.BirthYear;
 
-        existing.Movies = actor.Movies;
-
         await unitOfWork.CompleteAsync();
         return existing;
     }
