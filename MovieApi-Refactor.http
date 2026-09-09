@@ -3,4 +3,6 @@
 GET {{MovieApi_Refactor_HostAddress}}/movies/
 Accept: application/json
 
-###
+### Actors
+GET {{MovieApi_Refactor_HostAddress}}/actors/
+Accept: application/json
