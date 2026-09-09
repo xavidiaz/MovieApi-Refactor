@@ -17,7 +17,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<MovieContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext"))
 );
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
