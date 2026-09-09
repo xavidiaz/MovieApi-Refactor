@@ -7,4 +7,5 @@ public class Movie
     public required int Year { get; set; }
 
     public ICollection<Actor> Actors { get; set; } = [];
+    public ICollection<Review> Reviews { get; set; } = [];
 }
