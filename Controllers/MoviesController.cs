@@ -6,9 +6,8 @@ namespace MovieApi_Refactor.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MoviesController(IMovieService movieService) : ControllerBase
+public class MoviesController(IServiceManager serviceManager) : ControllerBase
 {
     [HttpGet(Name = "Movies")]
-    public async Task<IEnumerable<Movie>> GetAllAsync() => await movieService.GetAllAsync();
-
+    public async Task<IEnumerable<Movie>> GetAllAsync() => await serviceManager.Movie.GetAllAsync();
 }

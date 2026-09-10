@@ -6,8 +6,9 @@ namespace MovieApi_Refactor.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ReviewsController(IReviewService reviewService) : ControllerBase
+public class ReviewsController(IServiceManager serviceManager) : ControllerBase
 {
     [HttpGet(Name = "reviews")]
-    public async Task<IEnumerable<Review>> GetAllAsync() => await reviewService.GetAllAsync();
+    public async Task<IEnumerable<Review>> GetAllAsync() =>
+        await serviceManager.Review.GetAllAsync();
 }
