@@ -18,9 +18,7 @@ builder.Services.AddDbContext<MovieContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("MovieContext"))
 );
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IActorService, ActorService>();
-builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 var app = builder.Build();
 
