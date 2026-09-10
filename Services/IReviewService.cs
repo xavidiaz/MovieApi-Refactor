@@ -8,5 +8,5 @@ public interface IReviewService
     Task<Review?> GetByIdAsync(int id);
     Task<Review> CreateAsync(Review review);
     Task<Review?> UpdateAsync(int id, Review review);
-    Task<Review> DeleteAsync(int id);
+    Task<Review?> DeleteAsync(int id);
 }
