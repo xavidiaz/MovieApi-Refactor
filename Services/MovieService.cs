@@ -112,26 +112,29 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
         return movieDto;
     }
 
-    public async Task<MovieDto?> UpdateAsync(int id, CreateMovieDto movie)
+    public async Task<MovieDto?> UpdateAsync(int id, UpdateMovieDto inputDto)
     {
-        var existing = await unitOfWork.Movies.GetByIdAsync(id);
-        if (existing is null)
+        var movie = await unitOfWork.Movies.GetByIdAsync(id);
+        if (movie is null)
             return null;
 
-        existing.Title = movie.Title;
-        existing.Year = movie.Year;
+        var actors = await unitOfWork.Actors.GetByIdsAsync(inputDto.ActorsId);
+
+        movie.Title = inputDto.Title;
+        movie.Year = inputDto.Year;
+        movie.Actors = [.. actors];
 
         await unitOfWork.CompleteAsync();
 
         return new MovieDto
         {
-            Id = existing.Id,
-            Title = existing.Title,
-            Year = existing.Year,
+            Id = movie.Id,
+            Title = movie.Title,
+            Year = movie.Year,
 
             Actors =
             [
-                .. existing.Actors.Select(a => new ActorSummaryDto
+                .. movie.Actors.Select(a => new ActorSummaryDto
                 {
                     Id = a.Id,
                     FirstName = a.FirstName,
@@ -141,7 +144,7 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
             ],
             Reviews =
             [
-                .. existing.Reviews.Select(r => new ReviewSummaryDto
+                .. movie.Reviews.Select(r => new ReviewSummaryDto
                 {
                     Id = r.Id,
                     Text = r.Text,
