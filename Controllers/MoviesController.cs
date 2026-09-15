@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
 using MovieApi_Refactor.Services;
 
@@ -9,5 +10,17 @@ namespace MovieApi_Refactor.Controllers;
 public class MoviesController(IServiceManager serviceManager) : ControllerBase
 {
     [HttpGet(Name = "Movies")]
-    public async Task<IEnumerable<Movie>> GetAllAsync() => await serviceManager.Movie.GetAllAsync();
+    public async Task<IEnumerable<MovieDto>> GetAllAsync()
+    {
+        var movies = await serviceManager.Movie.GetAllAsync();
+        return movies.Select(m => new MovieDto
+        {
+            Id = m.Id,
+            Title = m.Title,
+            Year = m.Year,
+
+            Actors = m.Actors,
+            Reviews = m.Reviews,
+        });
+    }
 }

@@ -1,12 +1,13 @@
+using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
 
 namespace MovieApi_Refactor.Services;
 
 public interface IMovieService
 {
-    Task<IEnumerable<Movie>> GetAllAsync();
-    Task<Movie?> GetByIdAsync(int id);
-    Task<Movie> CreateAsync(Movie movie);
-    Task<Movie?> UpdateAsync(int id, Movie movie);
-    Task<Movie?> DeleteAsync(int id);
+    Task<IEnumerable<MovieDto>> GetAllAsync();
+    Task<MovieDto?> GetByIdAsync(int id);
+    Task<MovieDto> CreateAsync(CreateMovieDto movie);
+    Task<MovieDto?> UpdateAsync(int id, CreateMovieDto movie);
+    Task<MovieDto?> DeleteAsync(int id);
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using MovieApi_Refactor.Data;
+using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
 using MovieApi_Refactor.Services;
 
@@ -7,32 +8,182 @@ namespace MovieApi_Refactor.Services;
 
 public class MovieService(IUnitOfWork unitOfWork) : IMovieService
 {
-    public async Task<IEnumerable<Movie>> GetAllAsync() => await unitOfWork.Movies.GetAllAsync();
-    public async Task<Movie?> GetByIdAsync(int id) => await unitOfWork.Movies.GetByIdAsync(id);
-    public async Task<Movie> CreateAsync(Movie movie)
+    public async Task<IEnumerable<MovieDto>> GetAllAsync()
     {
+        var movies = await unitOfWork.Movies.GetAllAsync();
+
+        return movies.Select(m => new MovieDto
+        {
+            Id = m.Id,
+            Title = m.Title,
+            Year = m.Year,
+
+            Actors =
+            [
+                .. m.Actors.Select(a => new ActorSummaryDto
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    BirthYear = a.BirthYear,
+                }),
+            ],
+
+            Reviews =
+            [
+                .. m.Reviews.Select(r => new ReviewSummaryDto
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    Text = r.Text,
+                }),
+            ],
+        });
+    }
+
+    public async Task<MovieDto?> GetByIdAsync(int id)
+    {
+        var movie = await unitOfWork.Movies.GetByIdAsync(id);
+        if (movie is null)
+            return null;
+
+        return new MovieDto
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            Year = movie.Year,
+
+            Actors =
+            [
+                .. movie.Actors.Select(a => new ActorSummaryDto
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    BirthYear = a.BirthYear,
+                }),
+            ],
+            Reviews =
+            [
+                .. movie.Reviews.Select(r => new ReviewSummaryDto
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    Text = r.Text,
+                }),
+            ],
+        };
+    }
+
+    public async Task<MovieDto> CreateAsync(CreateMovieDto createDto)
+    {
+        var actors = await unitOfWork.Actors.GetByIdsAsync(createDto.ActorsId);
+
+        var movie = new Movie
+        {
+            Title = createDto.Title,
+            Year = createDto.Year,
+
+            Actors = [.. actors],
+            Reviews = [],
+        };
+
         unitOfWork.Movies.Add(movie);
         await unitOfWork.CompleteAsync();
-        return movie;
+
+        var movieDto = new MovieDto
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            Year = movie.Year,
+
+            Actors =
+            [
+                .. movie.Actors.Select(a => new ActorSummaryDto
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    BirthYear = a.BirthYear,
+                }),
+            ],
+            Reviews = [],
+        };
+        return movieDto;
     }
-    public async Task<Movie?> UpdateAsync(int id, Movie movie)
+
+    public async Task<MovieDto?> UpdateAsync(int id, CreateMovieDto movie)
     {
         var existing = await unitOfWork.Movies.GetByIdAsync(id);
-        if (existing is null) return null;
+        if (existing is null)
+            return null;
 
         existing.Title = movie.Title;
         existing.Year = movie.Year;
 
         await unitOfWork.CompleteAsync();
-        return existing;
+
+        return new MovieDto
+        {
+            Id = existing.Id,
+            Title = existing.Title,
+            Year = existing.Year,
+
+            Actors =
+            [
+                .. existing.Actors.Select(a => new ActorSummaryDto
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    BirthYear = a.BirthYear,
+                }),
+            ],
+            Reviews =
+            [
+                .. existing.Reviews.Select(r => new ReviewSummaryDto
+                {
+                    Id = r.Id,
+                    Text = r.Text,
+                    Rating = r.Rating,
+                }),
+            ],
+        };
     }
-    public async Task<Movie?> DeleteAsync(int id)
+
+    public async Task<MovieDto?> DeleteAsync(int id)
     {
         var movie = await unitOfWork.Movies.GetByIdAsync(id);
-        if (movie is null) return null;
+        if (movie is null)
+            return null;
 
         unitOfWork.Movies.Remove(movie);
         await unitOfWork.CompleteAsync();
-        return movie;
+
+        return new MovieDto
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            Year = movie.Year,
+            Actors =
+            [
+                .. movie.Actors.Select(a => new ActorSummaryDto
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    BirthYear = a.BirthYear,
+                }),
+            ],
+            Reviews =
+            [
+                .. movie.Reviews.Select(r => new ReviewSummaryDto
+                {
+                    Id = r.Id,
+                    Text = r.Text,
+                    Rating = r.Rating,
+                }),
+            ],
+        };
     }
 }

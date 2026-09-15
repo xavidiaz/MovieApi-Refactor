@@ -8,6 +8,9 @@ public class ActorRepository(MovieContext context) : IActorRepository
 {
     public async Task<IEnumerable<Actor>> GetAllAsync() => await context.Actors.ToListAsync();
 
+    public async Task<IEnumerable<Actor>> GetByIdsAsync(IEnumerable<int> ids) =>
+        await context.Actors.Where(a => ids.Contains(a.Id)).ToListAsync();
+
     public async Task<Actor?> GetByIdAsync(int id) => await context.Actors.FindAsync(id);
 
     public void Add(Actor actor) => context.Actors.Add(actor);
