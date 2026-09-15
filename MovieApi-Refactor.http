@@ -10,3 +10,14 @@ Accept: application/json
 ### Reviews
 GET {{MovieApi_Refactor_HostAddress}}/reviews/
 Accept: application/json
+
+### Movie Post
+POST {{MovieApi_Refactor_HostAddress}}/movies/
+Content-type: application/json
+Accept: application/json
+
+{
+    "title":"Men In Black",
+    "year":"2000",
+    "actorsId": [1,2],
+  }

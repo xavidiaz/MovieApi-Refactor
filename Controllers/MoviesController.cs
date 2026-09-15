@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieApi_Refactor.Dtos;
-using MovieApi_Refactor.Entities;
 using MovieApi_Refactor.Services;
 
 namespace MovieApi_Refactor.Controllers;
@@ -23,4 +22,8 @@ public class MoviesController(IServiceManager serviceManager) : ControllerBase
             Reviews = m.Reviews,
         });
     }
+
+    [HttpPost(Name = "Movie")]
+    public async Task<MovieDto> CreateAsync(CreateMovieDto inputDto) =>
+        await serviceManager.Movie.CreateAsync(inputDto);
 }
