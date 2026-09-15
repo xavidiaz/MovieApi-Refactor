@@ -11,6 +11,10 @@ Accept: application/json
 GET {{MovieApi_Refactor_HostAddress}}/reviews/
 Accept: application/json
 
+### Movie GET
+GET {{MovieApi_Refactor_HostAddress}}/movies/1
+Accept: application/json
+
 ### Movie Post
 POST {{MovieApi_Refactor_HostAddress}}/movies/
 Content-type: application/json
@@ -19,5 +23,20 @@ Accept: application/json
 {
     "title":"Men In Black",
     "year":"2000",
-    "actorsId": [1,2],
+    "actorsId": [1,2]
   }
+
+### Movie Put
+PUT {{MovieApi_Refactor_HostAddress}}/movies/1
+Content-type: application/json
+Accept: application/json
+
+{
+    "title":"Men In Black",
+    "year":"2002",
+    "actorsId": [1,2]
+}
+
+### Movie DELETE
+DELETE {{MovieApi_Refactor_HostAddress}}/movies/1
+Accept: application/json
