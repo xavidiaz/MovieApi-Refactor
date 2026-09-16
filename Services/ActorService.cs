@@ -54,9 +54,11 @@ public class ActorService(IUnitOfWork unitOfWork) : IActorService
         };
     }
 
-    public async Task<ActorDto> CreateAsync(CreateActorDto inputDto)
+    public async Task<ActorDto?> CreateAsync(CreateActorDto inputDto)
     {
         var movies = await unitOfWork.Movies.GetByIdsAsync(inputDto.MoviesId);
+        if (movies.Count() != inputDto.MoviesId.Count)
+            return null;
 
         var actor = new Actor
         {
