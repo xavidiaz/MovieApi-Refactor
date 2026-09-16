@@ -36,6 +36,10 @@ public class ReviewService(IUnitOfWork unitOfWork) : IReviewService
 
     public async Task<ReviewDto?> CreateAsync(CreateReviewDto inputDto)
     {
+        var movie = await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId);
+        if (movie is null)
+            return null;
+
         var review = new Review
         {
             Rating = inputDto.Rating,
@@ -60,8 +64,13 @@ public class ReviewService(IUnitOfWork unitOfWork) : IReviewService
         if (existing is null)
             return null;
 
+        var movie = await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId);
+        if (movie is null)
+            return null;
+
         existing.Rating = inputDto.Rating;
         existing.Text = inputDto.Text;
+        existing.MovieId = inputDto.MovieId;
 
         await unitOfWork.CompleteAsync();
         return new ReviewDto
