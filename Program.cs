@@ -92,21 +92,44 @@ using (var scope = app.Services.CreateScope())
         var inception = db.Movies.First(m => m.Title == "Inception");
         var parasite = db.Movies.First(m => m.Title == "Parasite");
 
-        matrix.Reviews.Add(new Review { Rating = 8.7, Text = "Genredefinierande sci-fi." });
         matrix.Reviews.Add(
-            new Review { Rating = 7.5, Text = "Håller än, bortsett från vissa effekter." }
+            new Review
+            {
+                Rating = 8.7,
+                Text = "Genredefinierande sci-fi.",
+                MovieId = matrix.Id,
+            }
+        );
+        matrix.Reviews.Add(
+            new Review
+            {
+                Rating = 7.5,
+                Text = "Håller än, bortsett från vissa effekter.",
+                MovieId = matrix.Id,
+            }
         );
 
         inception.Reviews.Add(
-            new Review { Rating = 8.8, Text = "Snurrar vidare i huvudet efteråt." }
+            new Review
+            {
+                Rating = 8.8,
+                Text = "Snurrar vidare i huvudet efteråt.",
+                MovieId = inception.Id,
+            }
         );
 
-        parasite.Reviews.Add(new Review { Rating = 9.1, Text = "Perfekt tonväxling hela vägen." });
+        parasite.Reviews.Add(
+            new Review
+            {
+                Rating = 9.1,
+                Text = "Perfekt tonväxling hela vägen.",
+                MovieId = parasite.Id,
+            }
+        );
 
         db.SaveChanges();
     }
 }
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
