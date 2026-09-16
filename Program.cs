@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
-using MovieApi_Refactor;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Entities;
-using MovieApi_Refactor.Repositories;
 using MovieApi_Refactor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +16,7 @@ builder.Services.AddDbContext<MovieContext>(options =>
 );
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
+builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
 
 var app = builder.Build();
 
