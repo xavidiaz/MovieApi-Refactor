@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Services;
 
 namespace MovieApi_Refactor.Controllers;
@@ -9,6 +9,6 @@ namespace MovieApi_Refactor.Controllers;
 public class ReviewsController(IServiceManager serviceManager) : ControllerBase
 {
     [HttpGet(Name = "reviews")]
-    public async Task<IEnumerable<Review>> GetAllAsync() =>
+    public async Task<IEnumerable<ReviewDto>> GetAllAsync() =>
         await serviceManager.Review.GetAllAsync();
 }
