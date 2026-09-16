@@ -34,7 +34,7 @@ public class ReviewService(IUnitOfWork unitOfWork) : IReviewService
         };
     }
 
-    public async Task<ReviewDto> CreateAsync(CreateReviewDto inputDto)
+    public async Task<ReviewDto?> CreateAsync(CreateReviewDto inputDto)
     {
         var review = new Review
         {
