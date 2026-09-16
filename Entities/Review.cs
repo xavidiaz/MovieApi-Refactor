@@ -6,6 +6,6 @@ public class Review
     public required double Rating { get; set; }
     public required string Text { get; set; } = string.Empty;
 
-    public int MovieId { get; set; }
+    public required int MovieId { get; set; }
     public Movie Movie { get; set; } = null!;
 }
