@@ -1,14 +1,7 @@
 @MovieApi_Refactor_HostAddress = http://localhost:5088
 
+### Movies GET all
 GET {{MovieApi_Refactor_HostAddress}}/movies/
-Accept: application/json
-
-### Actors
-GET {{MovieApi_Refactor_HostAddress}}/actors/
-Accept: application/json
-
-### Reviews
-GET {{MovieApi_Refactor_HostAddress}}/reviews/
 Accept: application/json
 
 ### Movie GET
@@ -39,4 +32,74 @@ Accept: application/json
 
 ### Movie DELETE
 DELETE {{MovieApi_Refactor_HostAddress}}/movies/1
+Accept: application/json
+
+### Actors GET all
+GET {{MovieApi_Refactor_HostAddress}}/actors/
+Accept: application/json
+
+### Actor GET
+GET {{MovieApi_Refactor_HostAddress}}/actors/1
+Accept: application/json
+
+### Actor Post
+POST {{MovieApi_Refactor_HostAddress}}/actors/
+Content-type: application/json
+Accept: application/json
+
+{
+    "firstName": "Will",
+    "lastName": "Smith",
+    "birthYear": 1968,
+    "moviesId": [1]
+}
+
+### Actor Put
+PUT {{MovieApi_Refactor_HostAddress}}/actors/1
+Content-type: application/json
+Accept: application/json
+
+{
+    "firstName": "Keanu",
+    "lastName": "Reeves",
+    "birthYear": 1964,
+    "moviesId": [1, 2]
+}
+
+### Actor DELETE
+DELETE {{MovieApi_Refactor_HostAddress}}/actors/1
+Accept: application/json
+
+### Reviews GET all
+GET {{MovieApi_Refactor_HostAddress}}/reviews/
+Accept: application/json
+
+### Review GET
+GET {{MovieApi_Refactor_HostAddress}}/reviews/1
+Accept: application/json
+
+### Review Post
+POST {{MovieApi_Refactor_HostAddress}}/reviews/
+Content-type: application/json
+Accept: application/json
+
+{
+    "rating": 6.5,
+    "text": "Rolig men ytlig uppföljare.",
+    "movieId": 1
+}
+
+### Review Put
+PUT {{MovieApi_Refactor_HostAddress}}/reviews/1
+Content-type: application/json
+Accept: application/json
+
+{
+    "rating": 8.7,
+    "text": "Genredefinierande sci-fi.",
+    "movieId": 1
+}
+
+### Review DELETE
+DELETE {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
