@@ -7,7 +7,7 @@ public interface IActorService
 {
     Task<IEnumerable<ActorDto>> GetAllAsync();
     Task<ActorDto?> GetByIdAsync(int id);
-    Task<ActorDto> CreateAsync(Actor actor);
-    Task<ActorDto?> UpdateAsync(int id, Actor actor);
+    Task<ActorDto> CreateAsync(CreateActorDto actor);
+    Task<ActorDto?> UpdateAsync(int id, UpdateActorDto actor);
     Task<ActorDto?> DeleteAsync(int id);
 }

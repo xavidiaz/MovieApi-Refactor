@@ -8,6 +8,9 @@ public class MovieRepository(MovieContext context) : IMovieRepository
 {
     public async Task<IEnumerable<Movie>> GetAllAsync() => await context.Movies.ToListAsync();
 
+    public async Task<IEnumerable<Movie>> GetByIdsAsync(IEnumerable<int> ids) =>
+        await context.Movies.Where(m => ids.Contains(m.Id)).ToListAsync();
+
     public async Task<Movie?> GetByIdAsync(int id) =>
         await context
             .Movies.Include(a => a.Actors)
