@@ -73,9 +73,11 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
         };
     }
 
-    public async Task<MovieDto> CreateAsync(CreateMovieDto createDto)
+    public async Task<MovieDto?> CreateAsync(CreateMovieDto createDto)
     {
         var actors = await unitOfWork.Actors.GetByIdsAsync(createDto.ActorsId);
+        if (actors.Count() != createDto.ActorsId.Count)
+            return null;
 
         var movie = new Movie
         {

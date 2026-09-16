@@ -1,4 +1,3 @@
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Services;
@@ -29,7 +28,7 @@ public class MoviesController(IServiceManager serviceManager) : ControllerBase
         await serviceManager.Movie.GetByIdAsync(id);
 
     [HttpPost(Name = "Movie")]
-    public async Task<MovieDto> CreateAsync(CreateMovieDto inputDto) =>
+    public async Task<MovieDto?> CreateAsync(CreateMovieDto inputDto) =>
         await serviceManager.Movie.CreateAsync(inputDto);
 
     [HttpPut("{id}")]
