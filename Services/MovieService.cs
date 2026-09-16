@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
-using MovieApi_Refactor.Services;
 
 namespace MovieApi_Refactor.Services;
 
