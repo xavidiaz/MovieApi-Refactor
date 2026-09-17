@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Exceptions;
 using MovieApi_Refactor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddDbContext<MovieContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
@@ -24,6 +27,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseExceptionHandler();
 }
 
 using (var scope = app.Services.CreateScope())
