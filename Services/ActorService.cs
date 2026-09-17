@@ -1,57 +1,25 @@
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
 
 namespace MovieApi_Refactor.Services;
 
-public class ActorService(IUnitOfWork unitOfWork) : IActorService
+public class ActorService(IUnitOfWork unitOfWork, IMapper mapper) : IActorService
 {
     public async Task<IEnumerable<ActorDto>> GetAllAsync()
     {
         var actors = await unitOfWork.Actors.GetAllAsync();
 
-        return actors.Select(a => new ActorDto
-        {
-            Id = a.Id,
-            FirstName = a.FirstName,
-            LastName = a.LastName,
-            BirthYear = a.BirthYear,
-
-            Movies =
-            [
-                .. a.Movies.Select(m => new MovieSummaryDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Year = m.Year,
-                }),
-            ],
-        });
+        return actors.Select(mapper.Map<ActorDto>);
     }
 
     public async Task<ActorDto?> GetByIdAsync(int id)
     {
         var actor = await unitOfWork.Actors.GetByIdAsync(id);
-        if (actor is null)
-            return null;
 
-        return new ActorDto
-        {
-            Id = actor.Id,
-            FirstName = actor.FirstName,
-            LastName = actor.LastName,
-            BirthYear = actor.BirthYear,
-
-            Movies =
-            [
-                .. actor.Movies.Select(m => new MovieSummaryDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Year = m.Year,
-                }),
-            ],
-        };
+        return actor is null ? null : mapper.Map<ActorDto>(actor);
     }
 
     public async Task<ActorDto?> CreateAsync(CreateActorDto inputDto)
@@ -60,35 +28,13 @@ public class ActorService(IUnitOfWork unitOfWork) : IActorService
         if (movies.Count() != inputDto.MoviesId.Count)
             return null;
 
-        var actor = new Actor
-        {
-            FirstName = inputDto.FirstName,
-            LastName = inputDto.LastName,
-            BirthYear = inputDto.BirthYear,
-
-            Movies = [.. movies],
-        };
+        var actor = mapper.Map<Actor>(inputDto);
+        actor.Movies = [.. movies];
 
         unitOfWork.Actors.Add(actor);
         await unitOfWork.CompleteAsync();
 
-        return new ActorDto
-        {
-            Id = actor.Id,
-            FirstName = actor.FirstName,
-            LastName = actor.LastName,
-            BirthYear = actor.BirthYear,
-
-            Movies =
-            [
-                .. movies.Select(m => new MovieSummaryDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Year = m.Year,
-                }),
-            ],
-        };
+        return actor is null ? null : mapper.Map<ActorDto>(actor);
     }
 
     public async Task<ActorDto?> UpdateAsync(int id, UpdateActorDto actor)
@@ -97,27 +43,14 @@ public class ActorService(IUnitOfWork unitOfWork) : IActorService
         if (existing is null)
             return null;
 
-        existing.FirstName = actor.FirstName;
-        existing.LastName = actor.LastName;
-        existing.BirthYear = actor.BirthYear;
+        var movies = await unitOfWork.Movies.GetByIdsAsync(actor.MoviesId);
+
+        mapper.Map(actor, existing);
+        existing.Movies = [.. movies];
 
         await unitOfWork.CompleteAsync();
-        return new ActorDto
-        {
-            Id = existing.Id,
-            FirstName = existing.FirstName,
-            LastName = existing.LastName,
-            BirthYear = existing.BirthYear,
-            Movies =
-            [
-                .. existing.Movies.Select(m => new MovieSummaryDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Year = m.Year,
-                }),
-            ],
-        };
+
+        return existing is null ? null : mapper.Map<ActorDto>(existing);
     }
 
     public async Task<ActorDto?> DeleteAsync(int id)
@@ -129,22 +62,6 @@ public class ActorService(IUnitOfWork unitOfWork) : IActorService
         unitOfWork.Actors.Remove(actor);
         await unitOfWork.CompleteAsync();
 
-        return new ActorDto
-        {
-            Id = actor.Id,
-            FirstName = actor.FirstName,
-            LastName = actor.LastName,
-            BirthYear = actor.BirthYear,
-
-            Movies =
-            [
-                .. actor.Movies.Select(m => new MovieSummaryDto
-                {
-                    Id = m.Id,
-                    Title = m.Title,
-                    Year = m.Year,
-                }),
-            ],
-        };
+        return actor is null ? null : mapper.Map<ActorDto>(actor);
     }
 }
