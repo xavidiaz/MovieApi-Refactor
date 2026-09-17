@@ -2,6 +2,7 @@ using AutoMapper;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Exceptions;
 
 namespace MovieApi_Refactor.Services;
 
@@ -14,20 +15,19 @@ public class ReviewService(IUnitOfWork unitOfWork, IMapper mapper) : IReviewServ
         return review.Select(mapper.Map<ReviewDto>);
     }
 
-    public async Task<ReviewDto?> GetByIdAsync(int id)
+    public async Task<ReviewDto> GetByIdAsync(int id)
     {
-        var review = await unitOfWork.Reviews.GetByIdAsync(id);
-        if (review is null)
-            return null;
+        var review =
+            await unitOfWork.Reviews.GetByIdAsync(id) ?? throw new NotFoundException("Review", id);
 
         return mapper.Map<ReviewDto>(review);
     }
 
-    public async Task<ReviewDto?> CreateAsync(CreateReviewDto inputDto)
+    public async Task<ReviewDto> CreateAsync(CreateReviewDto inputDto)
     {
-        var movie = await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId);
-        if (movie is null)
-            return null;
+        _ =
+            await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId)
+            ?? throw new NotFoundException("Movie", inputDto.MovieId);
 
         var review = mapper.Map<Review>(inputDto);
 
@@ -37,32 +37,30 @@ public class ReviewService(IUnitOfWork unitOfWork, IMapper mapper) : IReviewServ
         return mapper.Map<ReviewDto>(review);
     }
 
-    public async Task<ReviewDto?> UpdateAsync(int id, UpdateReviewDto inputDto)
+    public async Task<ReviewDto> UpdateAsync(int id, UpdateReviewDto inputDto)
     {
-        var existing = await unitOfWork.Reviews.GetByIdAsync(id);
-        if (existing is null)
-            return null;
+        var review =
+            await unitOfWork.Reviews.GetByIdAsync(id) ?? throw new NotFoundException("Review", id);
 
-        var movie = await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId);
-        if (movie is null)
-            return null;
+        _ =
+            await unitOfWork.Movies.GetByIdAsync(inputDto.MovieId)
+            ?? throw new NotFoundException("Movie", inputDto.MovieId);
 
-        mapper.Map(inputDto, existing);
+        mapper.Map(inputDto, review);
 
         await unitOfWork.CompleteAsync();
 
-        return mapper.Map<ReviewDto>(existing);
+        return mapper.Map<ReviewDto>(review);
     }
 
-    public async Task<ReviewDto?> DeleteAsync(int id)
+    public async Task<ReviewDto> DeleteAsync(int id)
     {
-        var existing = await unitOfWork.Reviews.GetByIdAsync(id);
-        if (existing is null)
-            return null;
+        var review =
+            await unitOfWork.Reviews.GetByIdAsync(id) ?? throw new NotFoundException("Review", id);
 
-        unitOfWork.Reviews.Remove(existing);
+        unitOfWork.Reviews.Remove(review);
         await unitOfWork.CompleteAsync();
 
-        return mapper.Map<ReviewDto>(existing);
+        return mapper.Map<ReviewDto>(review);
     }
 }
