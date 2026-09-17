@@ -1,8 +1,8 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Exceptions;
 
 namespace MovieApi_Refactor.Services;
 
@@ -15,18 +15,19 @@ public class ActorService(IUnitOfWork unitOfWork, IMapper mapper) : IActorServic
         return actors.Select(mapper.Map<ActorDto>);
     }
 
-    public async Task<ActorDto?> GetByIdAsync(int id)
+    public async Task<ActorDto> GetByIdAsync(int id)
     {
-        var actor = await unitOfWork.Actors.GetByIdAsync(id);
+        var actor =
+            await unitOfWork.Actors.GetByIdAsync(id) ?? throw new NotFoundException("Actor", id);
 
-        return actor is null ? null : mapper.Map<ActorDto>(actor);
+        return mapper.Map<ActorDto>(actor);
     }
 
-    public async Task<ActorDto?> CreateAsync(CreateActorDto inputDto)
+    public async Task<ActorDto> CreateAsync(CreateActorDto inputDto)
     {
         var movies = await unitOfWork.Movies.GetByIdsAsync(inputDto.MoviesId);
         if (movies.Count() != inputDto.MoviesId.Count)
-            return null;
+            throw new NotFoundException("Movie", inputDto.MoviesId);
 
         var actor = mapper.Map<Actor>(inputDto);
         actor.Movies = [.. movies];
@@ -34,34 +35,32 @@ public class ActorService(IUnitOfWork unitOfWork, IMapper mapper) : IActorServic
         unitOfWork.Actors.Add(actor);
         await unitOfWork.CompleteAsync();
 
-        return actor is null ? null : mapper.Map<ActorDto>(actor);
+        return mapper.Map<ActorDto>(actor);
     }
 
-    public async Task<ActorDto?> UpdateAsync(int id, UpdateActorDto actor)
+    public async Task<ActorDto> UpdateAsync(int id, UpdateActorDto inputDto)
     {
-        var existing = await unitOfWork.Actors.GetByIdAsync(id);
-        if (existing is null)
-            return null;
+        var actor =
+            await unitOfWork.Actors.GetByIdAsync(id) ?? throw new NotFoundException("Actor", id);
 
-        var movies = await unitOfWork.Movies.GetByIdsAsync(actor.MoviesId);
+        var movies = await unitOfWork.Movies.GetByIdsAsync(inputDto.MoviesId);
 
-        mapper.Map(actor, existing);
-        existing.Movies = [.. movies];
+        mapper.Map(inputDto, actor);
+        actor.Movies = [.. movies];
 
         await unitOfWork.CompleteAsync();
 
-        return existing is null ? null : mapper.Map<ActorDto>(existing);
+        return mapper.Map<ActorDto>(actor);
     }
 
-    public async Task<ActorDto?> DeleteAsync(int id)
+    public async Task<ActorDto> DeleteAsync(int id)
     {
-        var actor = await unitOfWork.Actors.GetByIdAsync(id);
-        if (actor is null)
-            return null;
+        var actor =
+            await unitOfWork.Actors.GetByIdAsync(id) ?? throw new NotFoundException("Actor", id);
 
         unitOfWork.Actors.Remove(actor);
         await unitOfWork.CompleteAsync();
 
-        return actor is null ? null : mapper.Map<ActorDto>(actor);
+        return mapper.Map<ActorDto>(actor);
     }
 }
