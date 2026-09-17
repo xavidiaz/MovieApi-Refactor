@@ -2,6 +2,7 @@ using AutoMapper;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
+using MovieApi_Refactor.Exceptions;
 
 namespace MovieApi_Refactor.Services;
 
@@ -11,21 +12,22 @@ public class MovieService(IUnitOfWork unitOfWork, IMapper mapper) : IMovieServic
     {
         var movies = await unitOfWork.Movies.GetAllAsync();
 
-        return movies.Select(m => mapper.Map<MovieDto>(m));
+        return movies.Select(mapper.Map<MovieDto>);
     }
 
-    public async Task<MovieDto?> GetByIdAsync(int id)
+    public async Task<MovieDto> GetByIdAsync(int id)
     {
-        var movie = await unitOfWork.Movies.GetByIdAsync(id);
+        var movie =
+            await unitOfWork.Movies.GetByIdAsync(id) ?? throw new NotFoundException("Movie", id);
 
-        return movie is null ? null : mapper.Map<MovieDto>(movie);
+        return mapper.Map<MovieDto>(movie);
     }
 
-    public async Task<MovieDto?> CreateAsync(CreateMovieDto createDto)
+    public async Task<MovieDto> CreateAsync(CreateMovieDto createDto)
     {
         var actors = await unitOfWork.Actors.GetByIdsAsync(createDto.ActorsId);
         if (actors.Count() != createDto.ActorsId.Count)
-            return null;
+            throw new NotFoundException("Actor", string.Join(",", createDto.ActorsId));
 
         var movie = mapper.Map<Movie>(createDto);
         movie.Actors = [.. actors];
@@ -34,14 +36,13 @@ public class MovieService(IUnitOfWork unitOfWork, IMapper mapper) : IMovieServic
         unitOfWork.Movies.Add(movie);
         await unitOfWork.CompleteAsync();
 
-        return movie is null ? null : mapper.Map<MovieDto>(movie);
+        return mapper.Map<MovieDto>(movie);
     }
 
-    public async Task<MovieDto?> UpdateAsync(int id, UpdateMovieDto inputDto)
+    public async Task<MovieDto> UpdateAsync(int id, UpdateMovieDto inputDto)
     {
-        var movie = await unitOfWork.Movies.GetByIdAsync(id);
-        if (movie is null)
-            return null;
+        var movie =
+            await unitOfWork.Movies.GetByIdAsync(id) ?? throw new NotFoundException("Movie", id);
 
         var actors = await unitOfWork.Actors.GetByIdsAsync(inputDto.ActorsId);
 
@@ -50,18 +51,17 @@ public class MovieService(IUnitOfWork unitOfWork, IMapper mapper) : IMovieServic
 
         await unitOfWork.CompleteAsync();
 
-        return movie is null ? null : mapper.Map<MovieDto>(movie);
+        return mapper.Map<MovieDto>(movie);
     }
 
-    public async Task<MovieDto?> DeleteAsync(int id)
+    public async Task<MovieDto> DeleteAsync(int id)
     {
-        var movie = await unitOfWork.Movies.GetByIdAsync(id);
-        if (movie is null)
-            return null;
+        var movie =
+            await unitOfWork.Movies.GetByIdAsync(id) ?? throw new NotFoundException("Movie", id);
 
         unitOfWork.Movies.Remove(movie);
         await unitOfWork.CompleteAsync();
 
-        return movie is null ? null : mapper.Map<MovieDto>(movie);
+        return mapper.Map<MovieDto>(movie);
     }
 }
