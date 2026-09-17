@@ -1,76 +1,24 @@
+using AutoMapper;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Entities;
 
 namespace MovieApi_Refactor.Services;
 
-public class MovieService(IUnitOfWork unitOfWork) : IMovieService
+public class MovieService(IUnitOfWork unitOfWork, IMapper mapper) : IMovieService
 {
     public async Task<IEnumerable<MovieDto>> GetAllAsync()
     {
         var movies = await unitOfWork.Movies.GetAllAsync();
 
-        return movies.Select(m => new MovieDto
-        {
-            Id = m.Id,
-            Title = m.Title,
-            Year = m.Year,
-
-            Actors =
-            [
-                .. m.Actors.Select(a => new ActorSummaryDto
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
-                    BirthYear = a.BirthYear,
-                }),
-            ],
-
-            Reviews =
-            [
-                .. m.Reviews.Select(r => new ReviewSummaryDto
-                {
-                    Id = r.Id,
-                    Rating = r.Rating,
-                    Text = r.Text,
-                }),
-            ],
-        });
+        return movies.Select(m => mapper.Map<MovieDto>(m));
     }
 
     public async Task<MovieDto?> GetByIdAsync(int id)
     {
         var movie = await unitOfWork.Movies.GetByIdAsync(id);
-        if (movie is null)
-            return null;
 
-        return new MovieDto
-        {
-            Id = movie.Id,
-            Title = movie.Title,
-            Year = movie.Year,
-
-            Actors =
-            [
-                .. movie.Actors.Select(a => new ActorSummaryDto
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
-                    BirthYear = a.BirthYear,
-                }),
-            ],
-            Reviews =
-            [
-                .. movie.Reviews.Select(r => new ReviewSummaryDto
-                {
-                    Id = r.Id,
-                    Rating = r.Rating,
-                    Text = r.Text,
-                }),
-            ],
-        };
+        return movie is null ? null : mapper.Map<MovieDto>(movie);
     }
 
     public async Task<MovieDto?> CreateAsync(CreateMovieDto createDto)
@@ -79,37 +27,14 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
         if (actors.Count() != createDto.ActorsId.Count)
             return null;
 
-        var movie = new Movie
-        {
-            Title = createDto.Title,
-            Year = createDto.Year,
-
-            Actors = [.. actors],
-            Reviews = [],
-        };
+        var movie = mapper.Map<Movie>(createDto);
+        movie.Actors = [.. actors];
+        movie.Reviews = [];
 
         unitOfWork.Movies.Add(movie);
         await unitOfWork.CompleteAsync();
 
-        var movieDto = new MovieDto
-        {
-            Id = movie.Id,
-            Title = movie.Title,
-            Year = movie.Year,
-
-            Actors =
-            [
-                .. movie.Actors.Select(a => new ActorSummaryDto
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
-                    BirthYear = a.BirthYear,
-                }),
-            ],
-            Reviews = [],
-        };
-        return movieDto;
+        return movie is null ? null : mapper.Map<MovieDto>(movie);
     }
 
     public async Task<MovieDto?> UpdateAsync(int id, UpdateMovieDto inputDto)
@@ -120,38 +45,12 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
 
         var actors = await unitOfWork.Actors.GetByIdsAsync(inputDto.ActorsId);
 
-        movie.Title = inputDto.Title;
-        movie.Year = inputDto.Year;
+        mapper.Map(inputDto, movie);
         movie.Actors = [.. actors];
 
         await unitOfWork.CompleteAsync();
 
-        return new MovieDto
-        {
-            Id = movie.Id,
-            Title = movie.Title,
-            Year = movie.Year,
-
-            Actors =
-            [
-                .. movie.Actors.Select(a => new ActorSummaryDto
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
-                    BirthYear = a.BirthYear,
-                }),
-            ],
-            Reviews =
-            [
-                .. movie.Reviews.Select(r => new ReviewSummaryDto
-                {
-                    Id = r.Id,
-                    Text = r.Text,
-                    Rating = r.Rating,
-                }),
-            ],
-        };
+        return movie is null ? null : mapper.Map<MovieDto>(movie);
     }
 
     public async Task<MovieDto?> DeleteAsync(int id)
@@ -163,30 +62,6 @@ public class MovieService(IUnitOfWork unitOfWork) : IMovieService
         unitOfWork.Movies.Remove(movie);
         await unitOfWork.CompleteAsync();
 
-        return new MovieDto
-        {
-            Id = movie.Id,
-            Title = movie.Title,
-            Year = movie.Year,
-            Actors =
-            [
-                .. movie.Actors.Select(a => new ActorSummaryDto
-                {
-                    Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
-                    BirthYear = a.BirthYear,
-                }),
-            ],
-            Reviews =
-            [
-                .. movie.Reviews.Select(r => new ReviewSummaryDto
-                {
-                    Id = r.Id,
-                    Text = r.Text,
-                    Rating = r.Rating,
-                }),
-            ],
-        };
+        return movie is null ? null : mapper.Map<MovieDto>(movie);
     }
 }
