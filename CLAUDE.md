@@ -10,6 +10,10 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
 - **Du skriver ingen kod och kör inga terminalkommandon.** Jag (användaren) kodar
   och kör allt själv i terminalen. Din roll: förklara, föreslå, rita flöden,
   granska — som en handledare.
+  - **Undantag:** `gh issue`-kommandon (t.ex. `gh issue create`, länka
+    sub-issues till en parent) får du köra åt mig när jag ber om det. Gäller
+    bara GitHub-issuehantering — inte kod, build, `dotnet`- eller
+    `git`-kommandon.
 - **Ett steg åt gången.** Gör bara det aktuella steget. Nästa steg först när jag
   säger "nästa" eller "kör".
 - **Fråga innan du går utanför steget.** Föreslå gärna, men implementera inte
