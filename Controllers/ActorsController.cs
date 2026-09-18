@@ -17,14 +17,17 @@ public class ActorsController(IServiceManager serviceManager) : ControllerBase
     public async Task<ActorDto?> GetByIdAsync(int id) =>
         await serviceManager.Actor.GetByIdAsync(id);
 
+    [Authorize]
     [HttpPost(Name = "Actor")]
     public async Task<ActorDto?> CreateAsync(CreateActorDto inputDto) =>
         await serviceManager.Actor.CreateAsync(inputDto);
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActorDto?> PutAsync(int id, UpdateActorDto inputDto) =>
         await serviceManager.Actor.UpdateAsync(id, inputDto);
 
+    [Authorize]
     [HttpDelete("{id}")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<ActorDto?> DeleteAsync(int id) => await serviceManager.Actor.DeleteAsync(id);
