@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MovieApi_Refactor.Data;
 using MovieApi_Refactor.Entities;
@@ -20,7 +21,7 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
