@@ -26,8 +26,9 @@ public class ActorService(IUnitOfWork unitOfWork, IMapper mapper) : IActorServic
     public async Task<ActorDto> CreateAsync(CreateActorDto inputDto)
     {
         var movies = await unitOfWork.Movies.GetByIdsAsync(inputDto.MoviesId);
-        if (movies.Count() != inputDto.MoviesId.Count)
-            throw new NotFoundException("Movie", inputDto.MoviesId);
+        var missingIds = inputDto.MoviesId.Except(movies.Select(m => m.Id));
+        if (missingIds.Any())
+            throw new NotFoundException("Movie", string.Join(", ", missingIds));
 
         var actor = mapper.Map<Actor>(inputDto);
         actor.Movies = [.. movies];
