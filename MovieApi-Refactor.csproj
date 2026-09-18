@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>MovieApi_Refactor</RootNamespace>
+    <UserSecretsId>af3a1715-3b19-4b4f-8440-5dd665afd886</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
