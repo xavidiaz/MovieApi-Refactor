@@ -42,7 +42,7 @@ Accept: application/json
 GET {{MovieApi_Refactor_HostAddress}}/actors/1
 Accept: application/json
 
-### Actor Post 204
+### Actor Post 
 POST {{MovieApi_Refactor_HostAddress}}/actors/
 Content-type: application/json
 Accept: application/json
@@ -74,12 +74,12 @@ Accept: application/json
 GET {{MovieApi_Refactor_HostAddress}}/reviews/
 Accept: application/json
 
-### Review GET 204
+### Review GET 
 GET {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
 
-### Review Post  204
-PUT {{MovieApi_Refactor_HostAddress}}/reviews/
+### Review Post  
+POST {{MovieApi_Refactor_HostAddress}}/reviews/
 Content-type: application/json
 Accept: application/json
 
@@ -89,7 +89,7 @@ Accept: application/json
     "movieId": 1
 }
 
-### Review Put 204
+### Review Put 
 PUT {{MovieApi_Refactor_HostAddress}}/reviews/1
 Content-type: application/json
 Accept: application/json
@@ -100,6 +100,6 @@ Accept: application/json
     "movieId": 1
 }
 
-### Review DELETE 204
+### Review DELETE 
 DELETE {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
