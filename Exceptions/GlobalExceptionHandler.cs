@@ -11,7 +11,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         CancellationToken cancellationToken
     )
     {
-        if (exception is NotFoundException)
+        if (exception is not NotFoundException)
             return false;
 
         httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
