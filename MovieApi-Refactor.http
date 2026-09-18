@@ -1,4 +1,5 @@
 @MovieApi_Refactor_HostAddress = http://localhost:5088
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InhhdmlkaWF6Iiwic3ViIjoieGF2aWRpYXoiLCJqdGkiOiI2OTAyNGU3ZiIsImF1ZCI6WyJodHRwOi8vbG9jYWxob3N0OjUwODgiLCJodHRwczovL2xvY2FsaG9zdDo3MDExIl0sIm5iZiI6MTc4OTczMjMzMywiZXhwIjoxNzk3NTk0NzMzLCJpYXQiOjE3ODk3MzIzMzMsImlzcyI6ImRvdG5ldC11c2VyLWp3dHMifQ.F0fzofeFOa9Oh5Pciz5BX6NOjOlt_bhgZRl6E4k8jiU
 
 ### Movies GET all
 GET {{MovieApi_Refactor_HostAddress}}/movies/
@@ -12,6 +13,7 @@ Accept: application/json
 POST {{MovieApi_Refactor_HostAddress}}/movies/
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "title":"Men In Black",
@@ -23,6 +25,7 @@ Accept: application/json
 PUT {{MovieApi_Refactor_HostAddress}}/movies/1
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "title":"Men In Black",
@@ -33,6 +36,7 @@ Accept: application/json
 ### Movie DELETE
 DELETE {{MovieApi_Refactor_HostAddress}}/movies/1
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 ### Actors GET all
 GET {{MovieApi_Refactor_HostAddress}}/actors/
@@ -42,10 +46,11 @@ Accept: application/json
 GET {{MovieApi_Refactor_HostAddress}}/actors/1
 Accept: application/json
 
-### Actor Post 
+### Actor Post
 POST {{MovieApi_Refactor_HostAddress}}/actors/
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "firstName": "Will",
@@ -58,6 +63,7 @@ Accept: application/json
 PUT {{MovieApi_Refactor_HostAddress}}/actors/1
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "firstName": "Keanu",
@@ -69,6 +75,7 @@ Accept: application/json
 ### Actor DELETE
 DELETE {{MovieApi_Refactor_HostAddress}}/actors/1
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 ### Reviews GET all
 GET {{MovieApi_Refactor_HostAddress}}/reviews/
@@ -78,10 +85,11 @@ Accept: application/json
 GET {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
 
-### Review Post  
+### Review Post
 POST {{MovieApi_Refactor_HostAddress}}/reviews/
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "rating": 6.5,
@@ -89,10 +97,11 @@ Accept: application/json
     "movieId": 1
 }
 
-### Review Put 
+### Review Put
 PUT {{MovieApi_Refactor_HostAddress}}/reviews/1
 Content-type: application/json
 Accept: application/json
+Authorization: Bearer {{Token}}
 
 {
     "rating": 8.7,
@@ -100,6 +109,7 @@ Accept: application/json
     "movieId": 1
 }
 
-### Review DELETE 
+### Review DELETE
 DELETE {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
+Authorization: Bearer {{Token}}
