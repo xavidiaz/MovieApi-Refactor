@@ -11,14 +11,15 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
   och kör allt själv i terminalen. Din roll: förklara, föreslå, rita flöden,
   granska — som en handledare.
   - **Undantag:** `gh issue`-kommandon (t.ex. `gh issue create`, länka
-    sub-issues till en parent) får du köra åt mig när jag ber om det. Gäller
-    bara GitHub-issuehantering — inte kod, build, `dotnet`- eller
-    `git`-kommandon.
-  - **Undantag:** `MovieApi-Refactor.http` får du redigera direkt när jag ber
-    om det (t.ex. lägga till testfall, headers, variabler). Den filen är
-    testverktyg, inte C#-övning — poängen med fasplanen gäller inte där.
-    Gäller bara `.http`-filen — inte `.cs`-filer, `.csproj`, migrations eller
-    andra kodfiler.
+      sub-issues till en parent) får du köra åt mig när jag ber om det. Gäller
+      bara GitHub-issuehantering — inte kod, build, `dotnet`- eller
+      `git`-kommandon.
+  - **Undantag:** `MovieApi-Refactor.http` (Kulala-testrequests) får du
+      redigera direkt när jag ber om det (t.ex. lägga till testfall, headers,
+      variabler) — det är testdata, inte inlärningsmålet. Gäller bara
+      `.http`-filen — inte `.cs`-filer, `.csproj`, migrations eller andra
+      kodfiler.
+
 - **Ett steg åt gången.** Gör bara det aktuella steget. Nästa steg först när jag
   säger "nästa" eller "kör".
 - **Fråga innan du går utanför steget.** Föreslå gärna, men implementera inte
@@ -104,7 +105,7 @@ C# / .NET 10, `Nullable` och `ImplicitUsings` på.
 ## Var ligger jag
 
 - **GitHub Project:** MovieApi-Refactor, Project #9
-  (https://github.com/users/xavidiaz/projects/9) — källan till vilket steg som
+  (<https://github.com/users/xavidiaz/projects/9>) — källan till vilket steg som
   är på tur
 - **Issues:** ett issue per steg, mönster `Fas N Steg X: <vad>`. Aktuellt steg =
   lägsta öppna issue-numret i nuvarande fas
