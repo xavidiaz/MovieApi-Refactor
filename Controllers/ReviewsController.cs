@@ -27,7 +27,6 @@ public class ReviewsController(IServiceManager serviceManager) : ControllerBase
     public async Task<ReviewDto?> PutAsync(int id, UpdateReviewDto inputDto) =>
         await serviceManager.Review.UpdateAsync(id, inputDto);
 
-    [Authorize]
     [HttpDelete("{id}")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<ReviewDto?> DeleteAsync(int id) =>

@@ -27,7 +27,6 @@ public class ActorsController(IServiceManager serviceManager) : ControllerBase
     public async Task<ActorDto?> PutAsync(int id, UpdateActorDto inputDto) =>
         await serviceManager.Actor.UpdateAsync(id, inputDto);
 
-    [Authorize]
     [HttpDelete("{id}")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<ActorDto?> DeleteAsync(int id) => await serviceManager.Actor.DeleteAsync(id);

@@ -38,7 +38,6 @@ public class MoviesController(IServiceManager serviceManager) : ControllerBase
     public async Task<MovieDto?> PutAsync(int id, UpdateMovieDto inputDto) =>
         await serviceManager.Movie.UpdateAsync(id, inputDto);
 
-    [Authorize]
     [HttpDelete("{id}")]
     [Authorize(Policy = "AdminOnly")]
     public async Task<MovieDto?> DeleteAsync(int id) => await serviceManager.Movie.DeleteAsync(id);
