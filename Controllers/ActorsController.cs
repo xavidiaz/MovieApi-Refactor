@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieApi_Refactor.Dtos;
 using MovieApi_Refactor.Services;
@@ -25,5 +26,6 @@ public class ActorsController(IServiceManager serviceManager) : ControllerBase
         await serviceManager.Actor.UpdateAsync(id, inputDto);
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<ActorDto?> DeleteAsync(int id) => await serviceManager.Actor.DeleteAsync(id);
 }
