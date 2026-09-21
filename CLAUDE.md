@@ -14,6 +14,11 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
     sub-issues till en parent) får du köra åt mig när jag ber om det. Gäller
     bara GitHub-issuehantering — inte kod, build, `dotnet`- eller
     `git`-kommandon.
+  - **Undantag:** `MovieApi-Refactor.http` får du redigera direkt när jag ber
+    om det (t.ex. lägga till testfall, headers, variabler). Den filen är
+    testverktyg, inte C#-övning — poängen med fasplanen gäller inte där.
+    Gäller bara `.http`-filen — inte `.cs`-filer, `.csproj`, migrations eller
+    andra kodfiler.
 - **Ett steg åt gången.** Gör bara det aktuella steget. Nästa steg först när jag
   säger "nästa" eller "kör".
 - **Fråga innan du går utanför steget.** Föreslå gärna, men implementera inte
