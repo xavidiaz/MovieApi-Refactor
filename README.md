@@ -98,23 +98,28 @@ Lägg till Actor och Review. Repetera mönstret. Bevisa att arkitekturen skalar.
 **Problem:** Manuell Kulala-verifiering efter varje refaktorering är opålitligt.
 **Lösning:** xUnit unit tests med Moq + integration tests med `WebApplicationFactory`.
 
-### FAS 13 — 💥 Splitta i 4 projekt
+### FAS 13 — 💥 Splitta i 7 projekt
 
 **Nu — och först nu — förstår du varför man vill ha projekt-per-lager.**
 
 Slutstruktur:
 ```
-Movie.Domain/          ← Entities + repo-interfaces + custom exceptions
-Movie.Application/     ← Service-interfaces + services + DTOs + mapping
-Movie.Infrastructure/  ← DbContext + repositories + UnitOfWork
-Movie.Api/             ← Controllers + Program.cs + auth-config
-Movie.Api.Tests/       ← xUnit tests
+Movie.Domain/                ← Entities + DTOs + custom exceptions
+Movie.Domain.Contracts/      ← Repository-interfaces + IUnitOfWork-interface
+Movie.Application.Contracts/ ← Service-interfaces (IMovieService m.fl.)
+Movie.Application/           ← Services + AutoMapper-profiler
+Movie.Infrastructure/        ← DbContext + repositories + UnitOfWork
+Movie.Api/                   ← Controllers + Program.cs + auth-config
+Movie.Api.Tests/             ← xUnit tests
 ```
 
 Beroendepilar:
 ```
-Api → Application → Domain
-Api → Infrastructure → Domain
+Movie.Domain.Contracts      → Movie.Domain
+Movie.Application.Contracts → Movie.Domain
+Movie.Application           → Movie.Domain, Movie.Domain.Contracts, Movie.Application.Contracts
+Movie.Infrastructure        → Movie.Domain, Movie.Domain.Contracts
+Movie.Api                   → Movie.Application, Movie.Application.Contracts, Movie.Infrastructure
 Application och Infrastructure känner INTE varandra
 ```
 
