@@ -1,6 +1,6 @@
 @MovieApi_Refactor_HostAddress = http://localhost:5088
 @Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InhhdmlkaWF6Iiwic3ViIjoieGF2aWRpYXoiLCJqdGkiOiI2OTAyNGU3ZiIsImF1ZCI6WyJodHRwOi8vbG9jYWxob3N0OjUwODgiLCJodHRwczovL2xvY2FsaG9zdDo3MDExIl0sIm5iZiI6MTc4OTczMjMzMywiZXhwIjoxNzk3NTk0NzMzLCJpYXQiOjE3ODk3MzIzMzMsImlzcyI6ImRvdG5ldC11c2VyLWp3dHMifQ.F0fzofeFOa9Oh5Pciz5BX6NOjOlt_bhgZRl6E4k8jiU
-
+@TokenAdmin = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InhhdmlkaWF6Iiwic3ViIjoieGF2aWRpYXoiLCJqdGkiOiJiMDAzNDQ3MSIsInJvbGUiOiJBZG1pbiIsImF1ZCI6WyJodHRwOi8vbG9jYWxob3N0OjUwODgiLCJodHRwczovL2xvY2FsaG9zdDo3MDExIl0sIm5iZiI6MTc4OTk3OTg0MSwiZXhwIjoxNzk3ODQyMjQxLCJpYXQiOjE3ODk5Nzk4NDIsImlzcyI6ImRvdG5ldC11c2VyLWp3dHMifQ.-kcIy85K7EOdEUMC6Upk-aQKolrsthW-HOPRG_E6qWs
 ### Movies GET all
 GET {{MovieApi_Refactor_HostAddress}}/movies/
 Accept: application/json
@@ -33,10 +33,15 @@ Authorization: Bearer {{Token}}
     "actorsId": [1,2]
 }
 
-### Movie DELETE
+### Movie DELETE utan Admin-roll (ska ge 403 Forbidden)
 DELETE {{MovieApi_Refactor_HostAddress}}/movies/1
 Accept: application/json
 Authorization: Bearer {{Token}}
+
+### Movie DELETE med Admin-roll (ska funka) 
+DELETE {{MovieApi_Refactor_HostAddress}}/movies/1
+Accept: application/json
+Authorization: Bearer {{TokenAdmin}}
 
 ### Actors GET all
 GET {{MovieApi_Refactor_HostAddress}}/actors/
@@ -72,10 +77,15 @@ Authorization: Bearer {{Token}}
     "moviesId": [1, 2]
 }
 
-### Actor DELETE
+### Actor DELETE utan Admin-roll (ska ge 403 Forbidden)
 DELETE {{MovieApi_Refactor_HostAddress}}/actors/1
 Accept: application/json
 Authorization: Bearer {{Token}}
+
+### Actor DELETE med Admin-roll (ska funka) 
+DELETE {{MovieApi_Refactor_HostAddress}}/actors/1
+Accept: application/json
+Authorization: Bearer {{TokenAdmin}}
 
 ### Reviews GET all
 GET {{MovieApi_Refactor_HostAddress}}/reviews/
@@ -109,7 +119,12 @@ Authorization: Bearer {{Token}}
     "movieId": 1
 }
 
-### Review DELETE
+### Review DELETE utan Admin-roll (ska ge 403 Forbidden)
 DELETE {{MovieApi_Refactor_HostAddress}}/reviews/1
 Accept: application/json
 Authorization: Bearer {{Token}}
+
+### Review DELETE med Admin-roll (ska funka) 
+DELETE {{MovieApi_Refactor_HostAddress}}/reviews/1
+Accept: application/json
+Authorization: Bearer {{TokenAdmin}}
