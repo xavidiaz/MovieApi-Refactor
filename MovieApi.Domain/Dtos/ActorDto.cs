@@ -1,4 +1,4 @@
-namespace Api.Dtos;
+namespace MovieApi.Domain.Dtos;
 
 public class ActorDto
 {

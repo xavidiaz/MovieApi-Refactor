@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Dtos;
+namespace MovieApi.Domain.Dtos;
 
-public class UpdateReviewDto
+public class CreateReviewDto
 {
     [Range(1.0, 5.0, ErrorMessage = "Rating must be between 1.0 and 5.0.")]
-    public required double Rating { get; set; }
+    public required double Rating { get; init; }
 
     [Required(AllowEmptyStrings = false, ErrorMessage = "Review text cannot be empty.")]
     [StringLength(
@@ -13,8 +13,8 @@ public class UpdateReviewDto
         MinimumLength = 5,
         ErrorMessage = "Review text must be between 5 and 1000 characters."
     )]
-    public required string Text { get; set; }
+    public required string Text { get; init; }
 
     [Range(1, int.MaxValue, ErrorMessage = "A valid MovieId is required.")]
-    public required int MovieId { get; set; }
+    public required int MovieId { get; init; }
 }

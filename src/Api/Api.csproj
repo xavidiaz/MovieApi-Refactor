@@ -20,4 +20,8 @@
     <PackageReference Include="Microsoft.OpenApi" Version="2.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MovieApi.Domain\MovieApi.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
