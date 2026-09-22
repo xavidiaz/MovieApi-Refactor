@@ -3,6 +3,7 @@
   <Project Path="MovieApi.Application/MovieApi.Application.csproj" />
   <Project Path="MovieApi.Domain.Contracts/MovieApi.Domain.Contracts.csproj" />
   <Project Path="MovieApi.Domain/MovieApi.Domain.csproj" />
+  <Project Path="MovieApi.Infrastructure/MovieApi.Infrastructure.csproj" />
   <Project Path="src/Api/Api.csproj" />
   <Project Path="tests/Tests.csproj" />
 </Solution>
