@@ -2,7 +2,7 @@ using AutoMapper;
 using MovieApi.Domain.Dtos;
 using MovieApi.Domain.Entities;
 
-namespace Api.Profiles;
+namespace MovieApi.Application.Profiles;
 
 public class ActorProfile : Profile
 {

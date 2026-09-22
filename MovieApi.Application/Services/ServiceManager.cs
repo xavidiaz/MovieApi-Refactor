@@ -1,8 +1,9 @@
 using Api.Data;
 using AutoMapper;
 using MovieApi.Application.Contracts;
+using MovieApi.Application.Services;
 
-namespace Api.Services;
+namespace MovieApi.Application.Services;
 
 public class ServiceManager(IUnitOfWork unitOfWork, IMapper mapper) : IServiceManager
 {

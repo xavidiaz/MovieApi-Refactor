@@ -1,9 +1,9 @@
 using Api.Data;
 using Api.Exceptions;
-using Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MovieApi.Application.Contracts;
+using MovieApi.Application.Services;
 using MovieApi.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);

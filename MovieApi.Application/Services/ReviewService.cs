@@ -5,7 +5,7 @@ using MovieApi.Domain.Dtos;
 using MovieApi.Domain.Entities;
 using MovieApi.Domain.Exceptions;
 
-namespace Api.Services;
+namespace MovieApi.Application.Services;
 
 public class ReviewService(IUnitOfWork unitOfWork, IMapper mapper) : IReviewService
 {
