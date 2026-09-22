@@ -1,4 +1,4 @@
-namespace Api.Services;
+namespace MovieApi.Application.Contracts;
 
 public interface IServiceManager
 {

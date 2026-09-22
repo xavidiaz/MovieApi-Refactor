@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="MovieApi.Application.Contracts/MovieApi.Application.Contracts.csproj" />
   <Project Path="MovieApi.Domain.Contracts/MovieApi.Domain.Contracts.csproj" />
   <Project Path="MovieApi.Domain/MovieApi.Domain.csproj" />
   <Project Path="src/Api/Api.csproj" />

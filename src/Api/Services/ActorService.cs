@@ -1,5 +1,6 @@
 using Api.Data;
 using AutoMapper;
+using MovieApi.Application.Contracts;
 using MovieApi.Domain.Dtos;
 using MovieApi.Domain.Entities;
 using MovieApi.Domain.Exceptions;

@@ -1,5 +1,6 @@
-using AutoMapper;
 using Api.Data;
+using AutoMapper;
+using MovieApi.Application.Contracts;
 
 namespace Api.Services;
 

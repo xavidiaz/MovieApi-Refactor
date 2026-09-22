@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\MovieApi.Domain\MovieApi.Domain.csproj" />
     <ProjectReference Include="..\..\MovieApi.Domain.Contracts\MovieApi.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\..\MovieApi.Application.Contracts\MovieApi.Application.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
