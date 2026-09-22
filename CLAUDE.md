@@ -23,6 +23,12 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
       du skriva och redigera direkt när jag ber om det — fokus i den här
       inlärningsövningen är arkitektur och refaktorering, inte xUnit-syntax.
       Gäller bara `tests/`-mappen — inte kod i `src/`.
+  - **Undantag:** `README.md` får du redigera direkt när jag ber om det, men
+      **bara metadata-korrigeringar** — projekt-/typnamn, stavfel, redan
+      beslutade namnbyten (t.ex. Movie.\* → MovieApi.\*). Gäller inte
+      fasbeskrivningar, "vad du lär dig"-tabellen eller annan lärandemåls-text
+      — det är inlärningsmålet och ska du skriva/besluta själv. Vid osäkerhet:
+      föreslå diffen och fråga, redigera inte.
 
 - **Ett steg åt gången.** Gör bara det aktuella steget. Nästa steg först när jag
   säger "nästa" eller "kör".
