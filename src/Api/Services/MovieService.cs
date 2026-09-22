@@ -1,8 +1,8 @@
-using AutoMapper;
 using Api.Data;
-using Api.Dtos;
-using Api.Entities;
-using Api.Exceptions;
+using AutoMapper;
+using MovieApi.Domain.Dtos;
+using MovieApi.Domain.Entities;
+using MovieApi.Domain.Exceptions;
 
 namespace Api.Services;
 

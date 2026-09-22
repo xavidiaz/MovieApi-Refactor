@@ -1,6 +1,6 @@
 using AutoMapper;
-using Api.Dtos;
-using Api.Entities;
+using MovieApi.Domain.Dtos;
+using MovieApi.Domain.Entities;
 
 namespace Api.Profiles;
 

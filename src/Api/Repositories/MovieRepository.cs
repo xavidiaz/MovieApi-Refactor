@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using Api.Data;
-using Api.Entities;
+using Microsoft.EntityFrameworkCore;
+using MovieApi.Domain.Entities;
 
 namespace Api.Repositories;
 

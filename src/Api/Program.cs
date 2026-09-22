@@ -1,5 +1,5 @@
 using Api.Data;
-using Api.Entities;
+using MovieApi.Domain.Entities;
 using Api.Exceptions;
 using Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

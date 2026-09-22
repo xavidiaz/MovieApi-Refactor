@@ -1,10 +1,10 @@
 using Api.Data;
-using Api.Dtos;
-using Api.Entities;
 using Api.Repositories;
 using Api.Services;
 using AutoMapper;
 using Moq;
+using MovieApi.Domain.Dtos;
+using MovieApi.Domain.Entities;
 
 namespace Tests;
 

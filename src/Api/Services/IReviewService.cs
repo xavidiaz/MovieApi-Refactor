@@ -1,4 +1,4 @@
-using Api.Dtos;
+using MovieApi.Domain.Dtos;
 
 namespace Api.Services;
 

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Api.Dtos;
+using MovieApi.Domain.Dtos;
 using Api.Services;
 
 namespace Api.Controllers;

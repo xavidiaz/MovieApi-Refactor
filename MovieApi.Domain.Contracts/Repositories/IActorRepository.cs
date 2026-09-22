@@ -1,4 +1,4 @@
-using Api.Entities;
+using MovieApi.Domain.Entities;
 
 namespace Api.Repositories;
 
