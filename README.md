@@ -13,6 +13,7 @@ Varje refaktorering föregås av:
 3. **Var kommer datan ifrån, vart skickas den?** — vi ritar flödet efter varje refaktorering
 
 **Två refaktoreringspass:**
+
 - **Fas 2–12:** Refaktorering till **mappar** — låg friktion, snabb progression
 - **Fas 13:** Refaktorering till **projekt** — kompilatorn tvingar arkitekturen
 
@@ -40,6 +41,7 @@ Samma refaktorering görs två gånger — först lätt, sen på riktigt. Repeti
 Ett projekt. Allt i rotmappen. Ingen ceremoni. Mål: `GET /movies` returnerar data.
 
 **Efter fas 1:**
+
 ```
 HTTP → MoviesController → MovieContext → SQLite
 ```
@@ -103,24 +105,28 @@ Lägg till Actor och Review. Repetera mönstret. Bevisa att arkitekturen skalar.
 **Nu — och först nu — förstår du varför man vill ha projekt-per-lager.**
 
 Slutstruktur:
+
 ```
-Movie.Domain/                ← Entities + DTOs + custom exceptions
-Movie.Domain.Contracts/      ← Repository-interfaces + IUnitOfWork-interface
-Movie.Application.Contracts/ ← Service-interfaces (IMovieService m.fl.)
-Movie.Application/           ← Services + AutoMapper-profiler
-Movie.Infrastructure/        ← DbContext + repositories + UnitOfWork
-Movie.Api/                   ← Controllers + Program.cs + auth-config
-Movie.Api.Tests/             ← xUnit tests
+MovieApi.Domain/                ← Entities + DTOs + custom exceptions
+MovieApi.Domain.Contracts/      ← Repository-interfaces + IUnitOfWork-interface
+MovieApi.Application.Contracts/ ← Service-interfaces (IMovieService m.fl.)
+MovieApi.Application/           ← Services + AutoMapper-profiler
+MovieApi.Infrastructure/        ← DbContext + repositories + UnitOfWork
+MovieApi/                       ← Controllers + Program.cs + auth-config
+MovieApi.Tests/                 ← xUnit tests
 ```
 
 Beroendepilar:
+
 ```
-Movie.Domain.Contracts      → Movie.Domain
-Movie.Application.Contracts → Movie.Domain
-Movie.Application           → Movie.Domain, Movie.Domain.Contracts, Movie.Application.Contracts
-Movie.Infrastructure        → Movie.Domain, Movie.Domain.Contracts
-Movie.Api                   → Movie.Application, Movie.Application.Contracts, Movie.Infrastructure
+MovieApi.Domain.Contracts      → MovieApi.Domain
+MovieApi.Application.Contracts → MovieApi.Domain
+MovieApi.Application           → MovieApi.Domain, MovieApi.Domain.Contracts, MovieApi.Application.Contracts
+MovieApi.Infrastructure        → MovieApi.Domain, MovieApi.Domain.Contracts
+MovieApi                       → MovieApi.Application, MovieApi.Application.Contracts, MovieApi.Infrastructure
 Application och Infrastructure känner INTE varandra
+```
+
 ```
 
 När `Movie.Domain` inte har någon EF Core-referens och ändå fungerar — då förstår du hela grejen.
