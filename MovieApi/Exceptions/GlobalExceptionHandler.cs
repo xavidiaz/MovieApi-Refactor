@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MovieApi.Domain.Exceptions;
 
-namespace Api.Exceptions;
+namespace MovieApi.Exceptions;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {

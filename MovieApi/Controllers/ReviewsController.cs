@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MovieApi.Domain.Dtos;
 using MovieApi.Application.Contracts;
+using MovieApi.Domain.Dtos;
 
-namespace Api.Controllers;
+namespace MovieApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
