@@ -127,27 +127,54 @@ MovieApi                       → MovieApi.Application, MovieApi.Application.Co
 Application och Infrastructure känner INTE varandra
 ```
 
-```
+**Varför just så här — kärnprincipen**
 
-När `Movie.Domain` inte har någon EF Core-referens och ändå fungerar — då förstår du hela grejen.
+Det centrala är *Dependency Inversion*: `MovieApi.Domain` vet ingenting om
+någon annan. `MovieApi.Infrastructure` (EF Core, SQLite) vet om `Domain`,
+men `Domain` vet inte att `Infrastructure` existerar. Pilarna pekar alltid
+inåt, mot `Domain` — aldrig utåt.
 
-## Vad du lär dig efter varje fas
+Det knepiga (och lite kontraintuitiva) är var **interfacen** hamnar:
 
-| Efter fas | Du förstår |
-|---|---|
-| 1  | Web API + EF Core, minsta möjliga |
-| 2  | Mappar organiserar men tvingar inget |
-| 3  | Repository döljer datalager |
-| 4  | UnitOfWork = transaktioner |
-| 5  | Service = affärslogik separerad |
-| 6  | Mönstret skalar — nya entities är billiga |
-| 7  | ServiceManager = injektion skalar |
-| 8  | DTOs = API-modell vs domän-modell |
-| 9  | AutoMapper = mindre boilerplate |
-| 10 | Validering + felhantering centralt |
-| 11 | Auth = middleware, JWT-tokens via `dotnet user-jwts` |
-| 12 | Interfaces = mockbara → Clean Architecture klickar |
-| 13 | Projekt = kompilator-tvingad arkitektur |
+- `IMovieRepository` ligger i `Domain.Contracts` — **inte** i
+  `Infrastructure` där den implementeras.
+- `IMovieService` ligger i `Application.Contracts` — **inte** i
+  `Application` där den implementeras.
+
+Regeln: kontraktet hör hemma **bredvid den som konsumerar/definierar
+behovet**, inte bredvid den som implementerar det. `Application` behöver
+kunna säga "jag vill ha ett repository" utan att veta att det är SQLite
+bakom — därför ligger `IMovieRepository` i ett contracts-projekt som
+`Application` kan referera utan att dra in hela `Infrastructure` (och
+därmed EF Core-paketet). Det är precis det som gör att `Infrastructure`
+kan bytas ut (t.ex. mot en annan databas) utan att röra en rad i
+`Application` eller `Domain`.
+
+Innan Fas 13 låg allt i ett enda projekt — mappstrukturen såg likadan ut,
+men inget hindrade en Controller från att av misstag instansiera
+`MovieContext` direkt. Nu är det fysiskt omöjligt: `MovieApi.Domain.csproj`
+har ingen `ProjectReference` till `Infrastructure`, så koden skulle inte
+ens kompilera om gränsen bröts.
+
+När `MovieApi.Domain` inte har någon EF Core-referens och ändå fungerar — då förstår man hela grejen.
+
+## Vad jag lär mig efter varje fas
+
+| Efter fas | Jag förstår                                          |
+| --------- | ---------------------------------------------------- |
+| 1         | Web API + EF Core, minsta möjliga                    |
+| 2         | Mappar organiserar men tvingar inget                 |
+| 3         | Repository döljer datalager                          |
+| 4         | UnitOfWork = transaktioner                           |
+| 5         | Service = affärslogik separerad                      |
+| 6         | Mönstret skalar — nya entities är billiga            |
+| 7         | ServiceManager = injektion skalar                    |
+| 8         | DTOs = API-modell vs domän-modell                    |
+| 9         | AutoMapper = mindre boilerplate                      |
+| 10        | Validering + felhantering centralt                   |
+| 11        | Auth = middleware, JWT-tokens via `dotnet user-jwts` |
+| 12        | Interfaces = mockbara → Clean Architecture klickar   |
+| 13        | Projekt = kompilator-tvingad arkitektur              |
 
 ## Vad detta INTE innehåller (medvetet)
 
