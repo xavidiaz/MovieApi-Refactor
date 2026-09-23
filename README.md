@@ -158,6 +158,38 @@ ens kompilera om gränsen bröts.
 
 När `MovieApi.Domain` inte har någon EF Core-referens och ändå fungerar — då förstår man hela grejen.
 
+## De 7 projekten
+
+| Projekt | Innehåll | Refererar |
+|---|---|---|
+| `MovieApi.Domain` | Entities, DTOs, `NotFoundException` | inget |
+| `MovieApi.Domain.Contracts` | Repository-interfaces, `IUnitOfWork` | Domain |
+| `MovieApi.Application.Contracts` | Service-interfaces (`IMovieService` m.fl.) | Domain |
+| `MovieApi.Application` | Service-implementationer, AutoMapper-profiler | Domain, Domain.Contracts, Application.Contracts |
+| `MovieApi.Infrastructure` | `MovieContext`, repository-implementationer, `UnitOfWork`, migrations | Domain, Domain.Contracts |
+| `MovieApi` (host) | Controllers, `Program.cs`, appsettings, DI-wiring | alla fem ovan |
+| `MovieApi.Tests` | Unit + integrationstester | MovieApi |
+
+Diagrammet:
+
+```
+                    MovieApi (host / composition root)
+                   /    |         |         \
+                  /     |         |          \
+      Application  Application  Infrastructure  (+ Domain, Domain.Contracts direkt)
+      Contracts        |               |
+            \          |               |
+             \    Application    Domain.Contracts
+              \        |          /
+               \       |         /
+                \      |        /
+                 Domain.Contracts
+                        |
+                     Domain
+```
+
+Pilarna pekar alltid inåt, mot Domain. Ingen pil pekar någonsin utåt.
+
 ## Vad jag lär mig efter varje fas
 
 | Efter fas | Jag förstår                                          |
