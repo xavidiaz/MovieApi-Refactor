@@ -19,10 +19,10 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
       variabler) — det är testdata, inte inlärningsmålet. Gäller bara
       `.http`-filen — inte `.cs`-filer, `.csproj`, migrations eller andra
       kodfiler.
-  - **Undantag:** Testfiler under `tests/` (unit- och integration tests) får
+  - **Undantag:** Testfiler under `MovieApi.Tests/` (unit- och integration tests) får
       du skriva och redigera direkt när jag ber om det — fokus i den här
       inlärningsövningen är arkitektur och refaktorering, inte xUnit-syntax.
-      Gäller bara `tests/`-mappen — inte kod i `src/`.
+      Gäller bara `MovieApi.Tests/`-mappen — inte kod i `src/`.
   - **Undantag:** `README.md` får du redigera direkt när jag ber om det, men
       **bara metadata-korrigeringar** — projekt-/typnamn, stavfel, redan
       beslutade namnbyten (t.ex. Movie.\* → MovieApi.\*). Gäller inte
