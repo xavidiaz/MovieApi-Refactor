@@ -29,6 +29,10 @@ medvetet naiv — förbättra den inte i förväg, före sin fas.
       fasbeskrivningar, "vad du lär dig"-tabellen eller annan lärandemåls-text
       — det är inlärningsmålet och ska du skriva/besluta själv. Vid osäkerhet:
       föreslå diffen och fråga, redigera inte.
+  - **Undantag:** Arbetsloggar under `docs/` (`logg-YYYY-MM-DD.md`) får du
+      skriva och redigera direkt när jag ber om det — det är sessionshistorik,
+      inte inlärningsmålet. Gäller bara filer med det namnmönstret i
+      `docs/` — inte andra dokument som kan hamna där.
 
 - **Ett steg åt gången.** Gör bara det aktuella steget. Nästa steg först när jag
   säger "nästa" eller "kör".
