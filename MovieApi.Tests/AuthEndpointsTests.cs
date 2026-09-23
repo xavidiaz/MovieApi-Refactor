@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 
-namespace Tests;
+namespace MovieApi.Tests;
 
 public class AuthEndpointsTests : IDisposable
 {

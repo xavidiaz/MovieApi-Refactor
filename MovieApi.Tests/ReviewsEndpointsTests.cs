@@ -3,46 +3,45 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using MovieApi.Domain.Dtos;
 
-namespace Tests;
+namespace MovieApi.Tests;
 
-public class ActorsEndpointsTests(CustomWebApplicationFactory factory)
+public class ReviewsEndpointsTests(CustomWebApplicationFactory factory)
     : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
-    public async Task GetAllActors_ReturnOk()
+    public async Task GetAllReviews_ReturnOk()
     {
-        var response = await _client.GetAsync("/actors");
+        var response = await _client.GetAsync("/reviews");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Fact]
-    public async Task GetActorById_ReturnOk()
+    public async Task GetReviewById_ReturnOk()
     {
-        var response = await _client.GetAsync("/actors/1");
+        var response = await _client.GetAsync("/reviews/1");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Fact]
-    public async Task CreateActor_WithAuth_ReturnOk()
+    public async Task CreateReview_WithAuth_ReturnOk()
     {
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
             "Bearer",
             TestTokens.User
         );
 
-        var createDto = new CreateActorDto
+        var createDto = new CreateReviewDto
         {
-            FirstName = "Will",
-            LastName = "Smith",
-            BirthYear = 1968,
-            MoviesId = [],
+            Rating = 4.5,
+            Text = "Rolig men ytlig uppföljare.",
+            MovieId = 1,
         };
 
-        var response = await _client.PostAsJsonAsync("/actors", createDto);
+        var response = await _client.PostAsJsonAsync("/reviews", createDto);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }

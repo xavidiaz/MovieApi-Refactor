@@ -1,4 +1,4 @@
-namespace Tests;
+namespace MovieApi.Tests;
 
 internal static class TestTokens
 {

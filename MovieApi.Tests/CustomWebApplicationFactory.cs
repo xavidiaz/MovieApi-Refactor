@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Tests;
+namespace MovieApi.Tests;
 
 public class CustomWebApplicationFactory : WebApplicationFactory<Program>
 {

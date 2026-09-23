@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using MovieApi.Domain.Dtos;
 
-namespace Tests;
+namespace MovieApi.Tests;
 
 public class MoviesEndpointsTests(CustomWebApplicationFactory factory)
     : IClassFixture<CustomWebApplicationFactory>

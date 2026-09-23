@@ -5,5 +5,5 @@
   <Project Path="MovieApi.Domain/MovieApi.Domain.csproj" />
   <Project Path="MovieApi.Infrastructure/MovieApi.Infrastructure.csproj" />
   <Project Path="MovieApi/MovieApi.csproj" />
-  <Project Path="tests/Tests.csproj" />
+  <Project Path="MovieApi.Tests/MovieApi.Tests.csproj" />
 </Solution>

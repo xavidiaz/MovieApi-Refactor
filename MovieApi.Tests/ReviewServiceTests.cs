@@ -6,7 +6,7 @@ using MovieApi.Application.Services;
 using MovieApi.Domain.Dtos;
 using MovieApi.Domain.Entities;
 
-namespace Tests;
+namespace MovieApi.Tests;
 
 public class ReviewServiceTests
 {
