@@ -2,6 +2,7 @@ using Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MovieApi.Application.Contracts;
+using MovieApi.Application.Profiles;
 using MovieApi.Application.Services;
 using MovieApi.Domain.Entities;
 using MovieApi.Exceptions;
@@ -19,7 +20,7 @@ builder.Services.AddDbContext<MovieContext>(options =>
 );
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
-builder.Services.AddAutoMapper(cfg => { }, typeof(Program));
+builder.Services.AddAutoMapper(cfg => { }, typeof(Program), typeof(MovieProfile));
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
